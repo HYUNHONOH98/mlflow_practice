@@ -1,7 +1,11 @@
 from sklearn import datasets, svm, model_selection
-from base import TrainModelByMlflow
+from src.base import TrainModelByMlflow
 
 def train_iris_model():
+  '''
+  모델을 실제로 훈련시키는 research workspace 입니다.
+  해당 함수는 Iris datset 을 이용해 훈련하는 상황을 가정했습니다.
+  '''
   dataset  = datasets.load_iris()
   model = svm.SVC()
 

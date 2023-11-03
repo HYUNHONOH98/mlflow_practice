@@ -9,16 +9,20 @@ import mlflow
 import numpy as np
 
 
-def model_path(artifact_uri : str):
-    return artifact_uri.replace("mlflow-artifacts:", "mlartifacts") + "/model"
-
-
 class MlflowBase:
+    '''
+    mlflow 트래킹을 활성화 하기 위한 베이스 클래스 입니다.
+    '''
     def __init__(self):
         self.tracking_uri = "http://127.0.0.1:5000"
         mlflow.set_tracking_uri(self.tracking_uri)
 
+
 class TrainModelByMlflow(MlflowBase):
+    '''
+    mlflow 를 이용한 training 을 범용적인 모델에 대해 시행할 수 있는 클래스입니다.
+    (대부분의 scikit-learn 등의 모델을 이용할 수 있는 형태)
+    '''
     def __init__(self, model, X, y=None):
         super().__init__()
         self.model = model
@@ -37,7 +41,11 @@ class TrainModelByMlflow(MlflowBase):
             print(f"\n---------- logged {key} ----------")
             pprint(data)
 
+
 class SearchModelByMlflow(MlflowBase):
+    '''
+    생성한 모델 중 best 모델을 찾는 클래스 입니다.
+    '''
     def __init__(self):
         super().__init__()
 
@@ -54,7 +62,14 @@ class SearchModelByMlflow(MlflowBase):
                 "score":run.data.metrics}
     
 
+def model_path(artifact_uri : str):
+    return artifact_uri.replace("mlflow-artifacts:", "mlartifacts") + "/model"
+
+
 class InferenceModelByMlflow(SearchModelByMlflow):
+    '''
+    생성한 모델 중 best 모델을 inference 할 수 있게 만든 클래스 입니다.
+    '''
     def __init__(self):
         super().__init__()
         self.best_artifact_uri = self.get_best_model()["artifact_uri"]
