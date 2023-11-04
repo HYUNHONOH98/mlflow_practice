@@ -10,7 +10,7 @@
   - source .venv/bin/activate
 - 가상 환경 활성화 for window
 
-  - .\venv\Scripts\activate
+  - source .\venv\Scripts\activate
 
 - mlflow 서버 켜기 (port 5000)
 
