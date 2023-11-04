@@ -10,7 +10,7 @@
   - source .venv/bin/activate
 - 가상 환경 활성화 for window
 
-  - source .venv\Scripts\activate
+  - source .venv/Scripts/activate
  
 - 패키지 다운로드
   - pip install -r requirements.txt 
